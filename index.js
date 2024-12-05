@@ -1,6 +1,7 @@
 const express = require('express')
 const morgan = require('morgan')
 const cors = require('cors')
+const path = require('path')
 const app = express()
 const PORT = 3001
 
@@ -32,6 +33,7 @@ morgan.token('post-body', (req) => {
 app.use(cors())
 app.use(morgan(':method :url :status :res[content-length] - :response-time ms :post-body'))
 app.use(express.json())
+app.use(express.static(path.join(__dirname, 'dist')))
 
 app.get('/api/persons', (request,response) => {
     response.json(persons)
@@ -102,6 +104,10 @@ app.post('/api/persons', (request, response) => {
     persons = persons.concat(person)
     console.log(person)
     response.json(person)
+})
+
+app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'dist', 'index.html'))
 })
 
 app.listen(PORT, () => {
