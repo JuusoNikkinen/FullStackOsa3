@@ -7,7 +7,7 @@ const path = require('path')
 const Person = require('./models/person')
 const { nextTick } = require('process')
 const app = express()
-const PORT = process.env.PORT
+const PORT = process.env.PORT || 3001
 
 
 morgan.token('post-body', (req) => {
