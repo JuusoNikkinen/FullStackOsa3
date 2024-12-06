@@ -7,7 +7,6 @@ const path = require('path')
 const Person = require('./models/person')
 const { nextTick } = require('process')
 const app = express()
-const PORT = process.env.PORT || 3001
 
 
 morgan.token('post-body', (req) => {
@@ -20,7 +19,8 @@ morgan.token('post-body', (req) => {
 app.use(cors())
 app.use(morgan(':method :url :status :res[content-length] - :response-time ms :post-body'))
 app.use(express.json())
-app.use(express.static(path.join(__dirname, 'dist')))
+app.use(express.static('dist'))
+//app.use(express.static(path.join(__dirname, 'dist')))
 
 //Virheiden käsittely
 const errorHandler = (error, request, response, next) => {
@@ -140,6 +140,7 @@ app.get('*', (req, res) => {
     res.sendFile(path.resolve(__dirname, 'dist', 'index.html'))
 })
 
+const PORT = process.env.PORT || 3001
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`)
 })
