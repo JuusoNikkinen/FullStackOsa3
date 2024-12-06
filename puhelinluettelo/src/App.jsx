@@ -107,12 +107,11 @@ const App = () => {
         setPersons(response.data)
       })
       .catch(error => {
-        console.log('failed', error)
+        console.log('error', error.response.data)
       })
   }, [])
 
   const deleteName = (id) => {
-    console.log('deleting id', id)
     const person = persons.find(person => person.id === id)
     const deletedName = person.name
 
@@ -128,7 +127,7 @@ const App = () => {
           }, 5000)
         })
         .catch(error => {
-          console.log('failed', error)
+          console.log('error', error.response.data)
           setMessage(`Information of ${deletedName} has already been removed from server`)
           setMessageType('error')
           setTimeout(() => {
@@ -168,8 +167,8 @@ const App = () => {
             }, 5000)
           })
           .catch(error => {
-            console.log('failed', error)
-            setMessage(`Failed to update ${newName}`)
+            console.log('error', error.response.data)
+            setMessage('error', error.response.data)
             setMessageType('error')
             setTimeout(() => {
               setMessage(null)
@@ -190,12 +189,7 @@ const App = () => {
           }, 5000)
         })
         .catch(error => {
-          console.log('failed', error)
-          setMessage(`Failed to add name ${newName}`)
-          setMessageType('error')
-          setTimeout(() => {
-            setMessage(null)
-          }, 5000)
+          console.log('error', error.response.data)
         })
     }
   }
