@@ -8,7 +8,7 @@ mongoose.set('strictQuery', false)
 console.log('connecting to', url)
 mongoose.connect(url)
 
-  .then(result => {
+  .then(() => {
     console.log('connected to MongoDB')
   })
   .catch((error) => {
@@ -23,7 +23,7 @@ mongoose.connect(url)
 const puhNroValidaattori = (number) => {
   if (number.length < 8) {
     return false
-  } 
+  }
   const regex = /^[0-9]{2,3}-[0-9]+$/
   return regex.test(number)
 }
@@ -40,7 +40,7 @@ const personSchema = new mongoose.Schema({
     validate: {
       validator: puhNroValidaattori,
       message: props => `${props.value} not a valid number!`
-    } 
+    }
   }
 })
 
