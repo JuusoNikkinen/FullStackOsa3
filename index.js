@@ -19,7 +19,14 @@ morgan.token('post-body', (req) => {
 app.use(cors())
 app.use(morgan(':method :url :status :res[content-length] - :response-time ms :post-body'))
 app.use(express.json())
-app.use(express.static('dist'))
+app.use(express.static('dist', {
+  setHeaders: (res, path) => {
+    if (path.endsWith('.js')) {
+      res.setHeader('Content-Type', 'application/javascript')
+    }
+  }
+}))
+
 //app.use(express.static(path.join(__dirname, 'dist')))
 
 //Virheiden käsittely
@@ -81,16 +88,6 @@ app.delete('/api/persons/:id', (request, response, next) => {
     .catch(error => next(error))
 })
 
-/*   const generateId = () => {
-    const max = 100
-    let randomId
-    do {
-        randomId = Math.floor(Math.random() * max)
-    } while (persons.some(person => person.id === randomId))
-
-    return randomId
-  }
-   */
 
 //Henkilöiden lisääminen
 app.post('/api/persons', (request, response, next) => {
