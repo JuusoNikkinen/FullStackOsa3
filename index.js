@@ -21,6 +21,8 @@ app.use(morgan(':method :url :status :res[content-length] - :response-time ms :p
 app.use(express.json())
 app.use(express.static('dist'))
 //app.use(express.static(path.join(__dirname, 'dist')))
+console.log('Serving static files from:', path.resolve(__dirname, 'dist'));
+
 
 //Virheiden käsittely
 const errorHandler = (error, request, response, next) => {
@@ -139,6 +141,7 @@ app.put('/api/persons/:id', (request, response, next) => {
 app.get('*', (req, res) => {
     res.sendFile(path.resolve(__dirname, 'dist', 'index.html'))
 })
+            
 
 const PORT = process.env.PORT || 3001
 app.listen(PORT, () => {
