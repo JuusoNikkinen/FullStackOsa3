@@ -19,8 +19,8 @@ morgan.token('post-body', (req) => {
 app.use(cors())
 app.use(morgan(':method :url :status :res[content-length] - :response-time ms :post-body'))
 app.use(express.json())
-app.use(express.static('dist'))
-//app.use(express.static(path.join(__dirname, 'dist')))
+//app.use(express.static('dist'))
+app.use(express.static(path.join(__dirname, 'dist')))
 console.log('Serving static files from:', path.resolve(__dirname, 'dist'));
 
 
